@@ -21,7 +21,8 @@ const FeaturesSection = () => {
 
     const cards = featuresRef.current?.querySelectorAll(".feature-card");
     cards?.forEach((card) => {
-      card.classList.remove("animate-scale-in");
+      // Initialize with opacity 1 to ensure they're visible even before animation
+      card.classList.add("opacity-100");
       observer.observe(card);
     });
 
@@ -37,7 +38,7 @@ const FeaturesSection = () => {
           <FeatureCard 
             title="Smart Task Allocation" 
             variant="primary"
-            className="aspect-square flex flex-col items-center justify-center text-center opacity-0"
+            className="aspect-square flex flex-col items-center justify-center text-center opacity-100"
             style={{ animationDelay: "0.1s" }}
           >
             <ClipboardList className="h-12 w-12 text-festdark mb-4" />
@@ -49,7 +50,7 @@ const FeaturesSection = () => {
           <FeatureCard 
             title="AI Photo Finder" 
             variant="secondary"
-            className="aspect-square flex flex-col items-center justify-center text-center opacity-0"
+            className="aspect-square flex flex-col items-center justify-center text-center opacity-100"
             style={{ animationDelay: "0.2s" }}
           >
             <Image className="h-12 w-12 text-festdark mb-4" />
@@ -61,7 +62,7 @@ const FeaturesSection = () => {
           <FeatureCard 
             title="Event Report Generation" 
             variant="tertiary"
-            className="aspect-square flex flex-col items-center justify-center text-center opacity-0"
+            className="aspect-square flex flex-col items-center justify-center text-center opacity-100"
             style={{ animationDelay: "0.3s" }}
           >
             <BarChart3 className="h-12 w-12 text-festdark mb-4" />
@@ -73,7 +74,7 @@ const FeaturesSection = () => {
           <FeatureCard 
             title="Centralized Event Dashboard & Analytics" 
             variant="quaternary"
-            className="aspect-square flex flex-col items-center justify-center text-center opacity-0"
+            className="aspect-square flex flex-col items-center justify-center text-center opacity-100"
             style={{ animationDelay: "0.4s" }}
           >
             <Layout className="h-12 w-12 text-festdark mb-4" />
