@@ -35,6 +35,7 @@ const ProfilePage = () => {
                 <UserTypeCard 
                   type="Guest" 
                   icon={<User className="h-8 w-8" />} 
+                  onClick={() => navigate('/guest')}
                 />
               </div>
             </div>

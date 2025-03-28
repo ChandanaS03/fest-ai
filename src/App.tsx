@@ -8,6 +8,7 @@ import Index from "./app/page";
 import ProfilePage from "./pages/ProfilePage";
 import CoreMemberPage from "./pages/CoreMemberPage";
 import VolunteerPage from "./pages/VolunteerPage";
+import GuestPage from "./pages/GuestPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/core-member" element={<CoreMemberPage />} />
           <Route path="/volunteer" element={<VolunteerPage />} />
+          <Route path="/guest" element={<GuestPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
