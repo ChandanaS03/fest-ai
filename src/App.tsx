@@ -9,6 +9,7 @@ import ProfilePage from "./pages/ProfilePage";
 import CoreMemberPage from "./pages/CoreMemberPage";
 import VolunteerPage from "./pages/VolunteerPage";
 import GuestPage from "./pages/GuestPage";
+import DashboardPage from "./pages/DashboardPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/core-member" element={<CoreMemberPage />} />
           <Route path="/volunteer" element={<VolunteerPage />} />
           <Route path="/guest" element={<GuestPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

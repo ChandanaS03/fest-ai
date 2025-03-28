@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Image, Tags } from 'lucide-react';
+import { Search, Image as ImageIcon, Tags } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 
 const mockPhotos = [
@@ -85,7 +85,7 @@ const PhotoFinder = () => {
             {filteredPhotos.map((photo) => (
               <div key={photo.id} className="space-y-2">
                 <div className="aspect-square bg-muted relative overflow-hidden rounded-md">
-                  <Image className="absolute inset-0 h-full w-full object-cover" src={photo.url} alt={`Event photo ${photo.id}`} />
+                  <img className="absolute inset-0 h-full w-full object-cover" src={photo.url} alt={`Event photo ${photo.id}`} />
                 </div>
                 <div>
                   <p className="text-sm font-medium">{photo.event}</p>
@@ -103,7 +103,7 @@ const PhotoFinder = () => {
           
           {filteredPhotos.length === 0 && (
             <div className="text-center py-12">
-              <Image className="mx-auto h-12 w-12 text-gray-400" />
+              <ImageIcon className="mx-auto h-12 w-12 text-gray-400" />
               <p className="mt-4 text-muted-foreground">No photos match your search criteria</p>
             </div>
           )}
