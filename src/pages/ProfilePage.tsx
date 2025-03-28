@@ -29,7 +29,8 @@ const ProfilePage = () => {
                 />
                 <UserTypeCard 
                   type="Volunteer" 
-                  icon={<User className="h-8 w-8" />} 
+                  icon={<User className="h-8 w-8" />}
+                  onClick={() => navigate('/volunteer')}
                 />
                 <UserTypeCard 
                   type="Guest" 
