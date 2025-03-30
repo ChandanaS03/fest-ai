@@ -1,33 +1,51 @@
-from flask import Flask, render_template, request, redirect, url_for
+import gradio as gr
+from deepface import DeepFace
+import os
 
-app = Flask(__name__)
+EVENT_PHOTOS_PATH = "event_photos/"
 
-# Sample data for demonstration purposes
-registrations = [
-    {"id": 1, "name": "John Doe", "event": "Tech Fest", "status": "Confirmed"},
-    {"id": 2, "name": "Jane Smith", "event": "Cultural Festival", "status": "Pending"}
-]
+def find_matches(input_image):
+    matched_photos = []
+    for photo_name in os.listdir(EVENT_PHOTOS_PATH):
+        photo_path = os.path.join(EVENT_PHOTOS_PATH, photo_name)
+        try:
+            result = DeepFace.verify(
+                img1_path=input_image,
+                img2_path=photo_path,
+                model_name="Facenet",
+                enforce_detection=False  # Skip if no face found
+            )
+            if result["verified"]:
+                matched_photos.append(photo_path)  # Add image paths to array
+        except Exception as e:
+            print(f"Error processing {photo_name}: {e}")
+    return matched_photos  # Return array of matched image paths
 
-schedule = [
-    {"time": "10:00 AM", "event": "Inauguration Ceremony", "location": "Main Hall"},
-    {"time": "2:00 PM", "event": "Coding Hackathon", "location": "Lab 2"}
-]
+# Custom CSS for grid layout
+css = """
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+"""
 
-changes = [
-    {"id": 1, "update": "Venue for the keynote speech has been changed to Hall B."},
-    {"id": 2, "update": "Workshop on AI will now start at 1:30 PM."}
-]
+# Gradio Interface with Grid
+with gr.Blocks(css=css) as app:
+    gr.Markdown("## 🔍 Find ME")
+    with gr.Row():
+        input_image = gr.Image(type="filepath", label="Upload Your Selfie")
+        submit_btn = gr.Button("Search")
+    
+    # Gallery output with grid CSS
+    gallery = gr.Gallery(label="Matching Photos", columns=3, height="auto")
 
-@app.route("/")
-def dashboard():
-    return render_template("dashboard.html", registrations=registrations, schedule=schedule, changes=changes)
+    submit_btn.click(
+        fn=find_matches,
+        inputs=input_image,
+        outputs=gallery
+    )
 
-@app.route("/add_change", methods=["POST"])
-def add_change():
-    new_change = request.form.get("new_change")
-    changes.append({"id": len(changes) + 1, "update": new_change})
-    return redirect(url_for("dashboard"))
-
-if __name__ == "__main__":
-    app.run(debug=True)
-
+    gr.Markdown("### Matching Photos")
+    gr.Markdown("Upload a selfie to find matching photos from the event.")
+app.launch(share=True)  # Set `share=False` for local-only
